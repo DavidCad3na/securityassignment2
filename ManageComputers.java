@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageComputers {
+     //whitelist of computer optionns for user input validation
+    private static final String[] cpuTypes = {"i5", "i7"};
+    private static final String[] ramTypes = {"16", "32"};
+    private static final String[] storageTypes = {"512", "1024"};
+    private static final String[] screenSizes = {"13", "14"};
+    private static final String[] gpuTypes = {"Nvidia", "AMD"};
 
     public static void main(String args[]) {
 
@@ -15,7 +21,6 @@ public class ManageComputers {
 
         Scanner s = new Scanner(System.in);
         String menuOption="";
-
         do { //Start of main program loop
 
             //Show computer data in ArrayList<Computer>
@@ -53,6 +58,17 @@ public class ManageComputers {
         s.close(); //Close keyboard scanner
 
     } //End of main
+
+    //-----------------------------
+    private static boolean isValidInput(String input, String[] whitelist) {
+        input = input.toLowerCase();
+        for (String validOption : whitelist) {
+            if (input.equals(validOption.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    } 
 
     //-----------------------------
     //Display menu and get user selection, return it
@@ -117,10 +133,11 @@ public class ManageComputers {
 
                 //Get CPU, RAM and Disk info
                 tempComputer = getComputerData(s); 
-
+                String screenSize;
+                do {
                 System.out.print("Enter screen size:");
-                String screenSize = s.nextLine();
-
+                screenSize = s.nextLine();
+                }while (!isValidInput(screenSize, screenSizes));
                 //Add new Laptop to ArrayList in main() method
                 computers.add(new Laptop(tempComputer.getCPU(),tempComputer.getRAM(),tempComputer.getDisk(),screenSize)); 
 
@@ -131,12 +148,13 @@ public class ManageComputers {
 
             //Get CPU, RAM and Disk info
                 tempComputer = getComputerData(s); 
-
+                String GPUType;
+                do{
                 System.out.print("Enter GPU:");
-                String GPUType = s.nextLine();
-
+                GPUType = s.nextLine();
+                } while (!isValidInput(GPUType, gpuTypes));
                 //Add new Desktop to ArrayList in main() method
-                computers.add(new Desktop(tempComputer.getCPU(),tempComputer.getRAM(),tempComputer.getDisk(),GPUType)); 
+                computers.add(new Desktop(tempComputer.getCPU(),tempComputer.getRAM(),tempComputer.getDisk(), GPUType)); 
 
                 break;
 
@@ -207,8 +225,11 @@ public class ManageComputers {
                     //Get CPU, RAM and Disk info, store in temporary Computer-type object
                     tempComputer = getComputerData(s); 
 
-                    System.out.print("Enter screen size:");
-                    String screenSize = s.nextLine();
+                    String screenSize;
+                    do {
+                        System.out.print("Enter screen size:");
+                        screenSize = s.nextLine();
+                    } while (!isValidInput(screenSize, screenSizes));
 
                     //Get reference to the object in ArrayList<Computer> to edit
                     //Cast Computer to Laptop for setScreenSize call a few lines of code later
@@ -230,8 +251,11 @@ public class ManageComputers {
                     //Get CPU, RAM and Disk info
                     tempComputer = getComputerData(s); 
 
-                    System.out.print("Enter GPU:");
-                    String GPUType = s.nextLine();
+                    String GPUType;
+                    do {
+                        System.out.print("Enter GPU:");
+                        GPUType = s.nextLine();
+                    } while (!isValidInput(GPUType, gpuTypes));
 
                     //Get reference to the object in ArrayList<Computer> to edit
                     //Cast Computer to Laptop for setScreenSize call a few lines of code later
@@ -257,20 +281,27 @@ public class ManageComputers {
 
     //-----------------------------
     //Helper method to get data common to Laptop and Desktop (CPU, RAM and disk) objects. Returns a Computer-type object
-    //holding these values as attribues
+    //holding these values as attributes
     private static Computer getComputerData(Scanner s) {
         String CPU="";
         String RAM="";
         String disk="";
+        
+        do {
+            System.out.print("Enter CPU:");
+            CPU = s.nextLine();
+        } while ( ! isValidInput(CPU, cpuTypes) );
 
-        System.out.print("Enter CPU:");
-        CPU = s.nextLine();
+        do {
+            System.out.print("Enter RAM:");
+            RAM = s.nextLine();
+        } while ( ! isValidInput(RAM, ramTypes) );
 
-        System.out.print("Enter RAM:");
-        RAM = s.nextLine();
+        do {
+            System.out.print("Enter Disk:");
+            disk = s.nextLine();
+        } while ( ! isValidInput(disk, storageTypes) );
 
-        System.out.print("Enter Disk:");
-        disk = s.nextLine();
 
         return new Computer(CPU,RAM,disk);
 
