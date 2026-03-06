@@ -17,7 +17,7 @@ public class ManageComputers {
         //This ArrayList will hold all the computers in the system. Note that the type of objects expected in this
         //ArrayList are Computer, not Laptop or Desktop, but since those are subclasses of Computer they can be
         //stored in an ArrayLiust<Computer> anyway.
-        ArrayList<Computer> computers = new ArrayList<Computer>(); 
+        ArrayList<ComputerDevice> computers = new ArrayList<ComputerDevice>(); 
 
         Scanner s = new Scanner(System.in);
         String menuOption="";
@@ -94,14 +94,14 @@ public class ManageComputers {
 
     //-----------------------------
     //Show data for all laptops and desktops stored in ArrayList<Computer> create in main() method
-    private static void showComputers(ArrayList<Computer> computers) {
+    private static void showComputers(ArrayList<ComputerDevice> computers) {
         int computerListNumber=0; //This variable is used to hold the "list number" for each computer, starting at 1.
 
         System.out.println("=========");
 
         System.out.println("LIST OF COMPUTERS:-");
 
-        for (Computer c: computers) {
+        for (ComputerDevice c: computers) {
 
             computerListNumber++; //Increment list number for each computer
 
@@ -115,7 +115,7 @@ public class ManageComputers {
 
     //-----------------------------
     //Add a new Laptop or Desktop computer to the ArrayList<Computer>
-    private static void addComputer(ArrayList<Computer> computers, Scanner s) {
+    private static void addComputer(ArrayList<ComputerDevice> computers, Scanner s) {
         String computerType="";
 
         Computer tempComputer=null;
@@ -138,23 +138,23 @@ public class ManageComputers {
                 System.out.print("Enter screen size:");
                 screenSize = s.nextLine();
                 }while (!isValidInput(screenSize, screenSizes));
-                //Add new Laptop to ArrayList in main() method
-                computers.add(new Laptop(tempComputer.getCPU(),tempComputer.getRAM(),tempComputer.getDisk(),screenSize)); 
+                //Add new Laptop (composition) to ArrayList in main() method
+                computers.add(new Laptop(tempComputer,screenSize)); 
 
                 break;
             
             //Add a desktop    
             case "d": 
 
-            //Get CPU, RAM and Disk info
+                //Get CPU, RAM and Disk info
                 tempComputer = getComputerData(s); 
                 String GPUType;
                 do{
                 System.out.print("Enter GPU:");
                 GPUType = s.nextLine();
                 } while (!isValidInput(GPUType, gpuTypes));
-                //Add new Desktop to ArrayList in main() method
-                computers.add(new Desktop(tempComputer.getCPU(),tempComputer.getRAM(),tempComputer.getDisk(), GPUType)); 
+                //Add new Desktop (composition) to ArrayList in main() method
+                computers.add(new Desktop(tempComputer, GPUType)); 
 
                 break;
 
@@ -168,7 +168,7 @@ public class ManageComputers {
 
     //-----------------------------
     //Delete a specified computer from the ArrayList
-    private static void deleteComputer(ArrayList<Computer> computers, Scanner s) {
+    private static void deleteComputer(ArrayList<ComputerDevice> computers, Scanner s) {
         int computerListNumberToDelete=0;
 
         System.out.println("DELETE COMPUTER:-");
@@ -190,7 +190,7 @@ public class ManageComputers {
     //-----------------------------
     //Edit a computer. Since Laptop and Desktop are mutable classses/object get new data values and replace old
     //attribute values in object being edited using object setter methods
-    private static void editComputer(ArrayList<Computer> computers, Scanner s) {
+    private static void editComputer(ArrayList<ComputerDevice> computers, Scanner s) {
         int computerListNumberToEdit=0;
         String computerType="";
         Computer tempComputer=null;
@@ -231,8 +231,8 @@ public class ManageComputers {
                         screenSize = s.nextLine();
                     } while (!isValidInput(screenSize, screenSizes));
 
-                    //Get reference to the object in ArrayList<Computer> to edit
-                    //Cast Computer to Laptop for setScreenSize call a few lines of code later
+                    //Get reference to the object in ArrayList<ComputerDevice> to edit
+                    //Cast to Laptop for setScreenSize call a few lines of code later
                     Laptop laptopToEdit = (Laptop)computers.get(computerListNumberToEdit-1);
 
                     //Use setter methods to change mutable object state
@@ -257,8 +257,7 @@ public class ManageComputers {
                         GPUType = s.nextLine();
                     } while (!isValidInput(GPUType, gpuTypes));
 
-                    //Get reference to the object in ArrayList<Computer> to edit
-                    //Cast Computer to Laptop for setScreenSize call a few lines of code later
+                    //Get reference to the object in ArrayList<ComputerDevice> to edit
                     Desktop desktopToEdit = (Desktop)computers.get(computerListNumberToEdit-1);
 
                     //Use setter methods to change mutable object state

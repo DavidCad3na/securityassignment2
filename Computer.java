@@ -1,4 +1,4 @@
-//Computer class: manages computer CPU, RAM and Disk information
+//Computer class: holds CPU, RAM and Disk information (used by composition)
 
 public class Computer {
     String CPU=null;
@@ -6,7 +6,7 @@ public class Computer {
     String disk=null;
 
     //Constructors
-    public Computer() {} //No-arg contructor
+    public Computer() {} //No-arg constructor
 
     public Computer(String CPU, String RAM, String disk) {
         this.CPU=CPU;
@@ -39,6 +39,5 @@ public class Computer {
     public String getDisk() {
         return this.disk;
     }
-
 
 }
