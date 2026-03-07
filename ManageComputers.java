@@ -7,11 +7,11 @@ import java.util.Scanner;
 public class ManageComputers {
     //whitelist of computer optionns for user input validation
 
-    private static final String[] cpuTypes = {"i5", "i7"};
-    private static final String[] ramTypes = {"16", "32"};
-    private static final String[] storageTypes = {"512", "1024"};
-    private static final String[] screenSizes = {"13", "14"};
-    private static final String[] gpuTypes = {"Nvidia", "AMD"};
+    private static final String[] validCPUTypes = {"i5", "i7"};
+    private static final String[] validRAMTypes = {"16", "32"};
+    private static final String[] validStorageTypes = {"512", "1024"};
+    private static final String[] validScreenSizes = {"13", "14"};
+    private static final String[] validGPUTypes = {"Nvidia", "AMD"};
 
     public static void main(String args[]) {
 
@@ -138,7 +138,7 @@ public class ManageComputers {
                 do {
                     System.out.print("Enter screen size:");
                     screenSize = s.nextLine();
-                } while (!isValidInput(screenSize, screenSizes));
+                } while (!isValidInput(screenSize, validScreenSizes));
                 //Add new Laptop (composition) to ArrayList in main() method
                 computers.add(new Laptop(tempComputer, screenSize));
 
@@ -153,7 +153,7 @@ public class ManageComputers {
                 do {
                     System.out.print("Enter GPU:");
                     GPUType = s.nextLine();
-                } while (!isValidInput(GPUType, gpuTypes));
+                } while (!isValidInput(GPUType, validGPUTypes));
                 //Add new Desktop (composition) to ArrayList in main() method
                 computers.add(new Desktop(tempComputer, GPUType));
 
@@ -209,7 +209,7 @@ public class ManageComputers {
                 do {
                     System.out.print("Enter screen size:");
                     screenSize = s.nextLine();
-                } while (!isValidInput(screenSize, screenSizes));
+                } while (!isValidInput(screenSize, validScreenSizes));
 
                 computers.set(index, new Laptop(tempComputer, screenSize));
             } else if (existingComputer instanceof Desktop) {
@@ -221,7 +221,7 @@ public class ManageComputers {
                 do {
                     System.out.print("Enter GPU:");
                     GPUType = s.nextLine();
-                } while (!isValidInput(GPUType, gpuTypes));
+                } while (!isValidInput(GPUType, validGPUTypes));
 
                 computers.set(index, new Desktop(tempComputer, GPUType));
             }
@@ -241,17 +241,17 @@ public class ManageComputers {
         do {
             System.out.print("Enter CPU:");
             CPU = s.nextLine();
-        } while (!isValidInput(CPU, cpuTypes));
+        } while (!isValidInput(CPU, validCPUTypes));
 
         do {
             System.out.print("Enter RAM:");
             RAM = s.nextLine();
-        } while (!isValidInput(RAM, ramTypes));
+        } while (!isValidInput(RAM, validRAMTypes));
 
         do {
             System.out.print("Enter Disk:");
             disk = s.nextLine();
-        } while (!isValidInput(disk, storageTypes));
+        } while (!isValidInput(disk, validStorageTypes));
 
         return new Computer(CPU, RAM, disk);
 
