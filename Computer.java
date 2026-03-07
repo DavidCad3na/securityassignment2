@@ -1,33 +1,16 @@
-//Computer class: holds CPU, RAM and Disk information (used by composition)
+//Computer class: immutable holder for CPU, RAM and disk information.
 
-public class Computer {
-    String CPU=null;
-    String RAM=null;
-    String disk=null;
-
-    //Constructors
-    public Computer() {} //No-arg constructor
+public final class Computer {
+    private final String CPU;
+    private final String RAM;
+    private final String disk;
 
     public Computer(String CPU, String RAM, String disk) {
-        this.CPU=CPU;
-        this.RAM=RAM;
-        this.disk=disk;
+        this.CPU = CPU;
+        this.RAM = RAM;
+        this.disk = disk;
     }
 
-    //Setters
-    public void setCPU(String CPU) {
-        this.CPU=CPU;
-    }
-
-    public void setRAM(String RAM) {
-        this.RAM=RAM;
-    }
-
-    public void setDisk(String disk) {
-        this.disk=disk;
-    }
-
-    //Getters
     public String getCPU() {
         return this.CPU;
     }
@@ -39,5 +22,4 @@ public class Computer {
     public String getDisk() {
         return this.disk;
     }
-
 }

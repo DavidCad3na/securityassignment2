@@ -188,8 +188,7 @@ public class ManageComputers {
     } //End of deleteComputer
 
     //-----------------------------
-    //Edit a computer. Since Laptop and Desktop are mutable classes/object get new data values and replace old
-    //attribute values in object being edited using object setter methods
+    //Edit a computer by replacing the existing immutable object with a new one.
     private static void editComputer(ArrayList<ComputerDevice> computers, Scanner s) {
         int computerListNumberToEdit = 0;
 
